@@ -2,6 +2,5 @@
   "id": "prod6",
   "title": "NVIDIA GeForce RTX 4090 Founders Edition 24GB GDDR6X",
   "company": "NVIDIA",
-  "model": "RTX4090-FE",
-  "banner": "../../../assets/products/6.jpg"
+  "model": "RTX4090-FE"
 }
