@@ -1,10 +1,12 @@
 const express = require('express')
 const path = require('path')
+var cors = require('cors')
 const fs = require('fs')
 var parseString = require('xml2js').parseString
 const app = express()
 const port = 3000
 const indexing = { "xml" : {title: {},company : {},model : {}}, "json" : {title: {},company : {},model : {}} };
+app.use(cors())
 
 async function parseXml(code,format) {
     return new Promise((resolve, reject) => {
