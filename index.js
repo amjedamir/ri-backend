@@ -57,23 +57,22 @@ async function getFilesIndexing(format) {
     }
 }
 
+function rankingScore(finalKeys, file, type, format) {
+    if (!finalKeys || !file) return 0;
 
-function rankingScore(finalKeys,file,type,format) {
-    if(!finalKeys || !file) return 0;
-    var score = 0;
     var product = format == 'xml' ? file?.product?.[type]?.[0] : file?.[type];
-    if(product) {
-        product = product.toLowerCase().split(' ');
-        for(let key of finalKeys) {
-            if(product == key.toLowerCase()) {
-                score += 2;
-            }else if(product.includes(key.toLowerCase())) {
-                score += 1;
-            }
-        }
-    }
-    return score;
+    if (!product) return 0;
+
+    product = product.toLowerCase().split(' ');
+    const querySet = new Set(finalKeys.map(k => k.toLowerCase()));
+
+    const intersection = product.filter(word => querySet.has(word));
+
+    const union = new Set([...querySet, ...product]);
+
+    return intersection.length / union.size;
 }
+
 
 getFilesIndexing('xml').then(() => {
     getFilesIndexing('json').then(() => {
