@@ -31,8 +31,7 @@ async function getFilesIndexing(format) {
     const files = await fs.promises.readdir(path.join(__dirname, 'data', format));
 
     for (const file of files) {
-        const xml = await fs.promises.readFile(path.join(__dirname, 'data', format, file), 'utf-8');
-        var jsonF = await parseXml(xml,format);
+        const jsonF = await getParsedFile(file,format);
         const values = {
             "xml" : {
                 "title" : jsonF?.product?.title?.[0],"company" : jsonF?.product?.company?.[0] , "model" : jsonF?.product?.model?.[0]
